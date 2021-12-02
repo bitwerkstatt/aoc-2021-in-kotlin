@@ -2,20 +2,20 @@ import java.io.File
 
 fun readInput(name: String) = File("src", "$name.txt").readLines()
 
-fun part1(raw_input: List<String>): Int {
+fun solve(raw_input: List<String>, windowSize: Int): Int {
     val input = raw_input.map { it.toInt() }
-    return input
-        .zipWithNext()
-        .count { (prev, next) -> next > prev }
-}
-
-fun part2(raw_input: List<String>): Int {
-    val input = raw_input.map { it.toInt() }
-    val windowSize = 3
     return input
         .windowed(windowSize) { it.sum() }
         .zipWithNext()
         .count { (prev, next) -> next > prev }
+}
+
+fun part1(raw_input: List<String>): Int {
+    return solve(raw_input, 1)
+}
+
+fun part2(raw_input: List<String>): Int {
+    return solve(raw_input, 3)
 }
 
 fun main(args: Array<String>) {
